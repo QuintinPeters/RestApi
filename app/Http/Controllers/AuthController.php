@@ -45,6 +45,21 @@ class AuthController extends Controller
             'data' => $user,
             'access_token' => $user->createToken('api_token')->plainTextToken,
             'token_type' => 'bearer',
-        ],201);
+        ], 201);
+    }
+
+    public function logout()
+    {
+        Auth()->user()->currentAccesstoken()->delete();
+        return response()->json([
+            'message' => 'succesfully logout'
+        ], 200);
+    }
+
+    public function user()
+    {
+        return Response()->json([
+            'user' => Auth()->user()
+        ], 200);
     }
 }
