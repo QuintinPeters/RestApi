@@ -25,8 +25,8 @@ class AuthController extends Controller
         $user = User::where('email', $validated['email'])->first();
 
         return response()->json([
-            'access_token' => $user->createToken('api_token')->plainTextToken,
-            'token_type' => 'bearer',
+            'user' => $user,
+            'token' => $user->createToken('api_token')->plainTextToken,
         ]);
 
     }
@@ -42,15 +42,14 @@ class AuthController extends Controller
         $user = User::create($validated);
 
         return response()->json([
-            'data' => $user,
-            'access_token' => $user->createToken('api_token')->plainTextToken,
-            'token_type' => 'bearer',
+            'user' => $user,
+            'token' => $user->createToken('api_token')->plainTextToken,
         ], 201);
     }
 
     public function logout()
     {
-        Auth()->user()->currentAccesstoken()->delete();
+        Auth()->user()->Accesstoken()->delete();
         return response()->json([
             'message' => 'succesfully logout'
         ], 200);
