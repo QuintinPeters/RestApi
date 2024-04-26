@@ -40,6 +40,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::create($validated);
+        
 
         return response()->json([
             'user' => $user,
